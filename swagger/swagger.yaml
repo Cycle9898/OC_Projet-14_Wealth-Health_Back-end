@@ -1,0 +1,334 @@
+swagger: '2.0'
+info:
+  title: Wealth Health HRnet API documentation
+  description: Contains all API endpoints of this project
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /hr/login:
+    post:
+      tags:
+        - HR agents Module
+      summary: Login
+      description: API for Login a HR agent
+      parameters:
+        - in: body
+          name: body
+          description: Login Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Login Successfully
+          schema:
+            $ref: '#/definitions/LoginResponse'
+        '400':
+          description: Invalid Field(s)
+        '500':
+          description: Internal Server Error
+  /hr/signup:
+    post:
+      tags:
+        - HR agents Module
+      summary: Sign up
+      description: API for sign up a HR agent
+      parameters:
+        - in: body
+          name: body
+          description: Sign up Payload
+          required: true
+          schema:
+            $ref: '#/definitions/SignUp'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User created Successfully
+          schema:
+            $ref: '#/definitions/SignUpResponse'
+        '400':
+          description: Invalid Field(s)
+        '500':
+          description: Internal Server Error
+  /employees:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Employees Module
+      summary: Employees API
+      description: API for fetching the employees list
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Employees list retrieved successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              message:
+                type: string
+              body:
+                type: array
+                items:
+                  $ref: '#/definitions/EmployeeModel'
+        '400':
+          description: Invalid Field
+        '500':
+          description: Internal Server Error
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Employees Module
+      summary: Employees API
+      description: API for adding an employee
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Employee attributes
+          required: true
+          schema:
+            $ref: '#/definitions/EmployeeRequestModel'
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Employee added successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              message:
+                type: string
+              body:
+                $ref: '#/definitions/EmployeeModel'
+        '400':
+          description: Invalid Field(s)
+        '500':
+          description: Internal Server Error
+  /employees/{employeeID}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Employees Module
+      summary: Employees API
+      description: API for fetching an employee's data
+      parameters:
+        - in: path
+          name: employeeID
+          description: ID of the selected employee
+          required: true
+          type: string
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Employee data retrieved successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              message:
+                type: string
+              body:
+                $ref: '#/definitions/EmployeeModel'
+        '400':
+          description: Invalid Field
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Employees Module
+      summary: Employees API
+      description: API for updating an employee's data
+      parameters:
+        - in: path
+          name: employeeID
+          description: ID of the selected employee
+          required: true
+          type: string
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Employee attributes
+          required: true
+          schema:
+            $ref: '#/definitions/EmployeeRequestModel'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Employee data updated successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              message:
+                type: string
+              body:
+                $ref: '#/definitions/EmployeeModel'
+        '400':
+          description: Invalid Field(s)
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Employees Module
+      summary: Employees API
+      description: API for deleting an employee
+      parameters:
+        - in: path
+          name: employeeID
+          description: ID of the selected employee
+          required: true
+          type: string
+        - in: header
+          name: Authorization
+          type: string
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Employee deleted successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              message:
+                type: string
+        '400':
+          description: Invalid Field
+        '500':
+          description: Internal Server Error
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Login:
+    properties:
+      email:
+        type: string
+        description: HR agent email
+      password:
+        type: string
+        description: HR agent password
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  SignUp:
+    properties:
+      email:
+        type: string
+        description: HR agent email
+      password:
+        type: string
+        description: HR agent password
+      firstName:
+        type: string
+        description: HR agent first name
+      lastName:
+        type: string
+        description: HR agent last name
+  SignUpResponse:
+    type: object
+    properties:
+      status:
+        type: number
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  EmployeeModel:
+    type: object
+    properties:
+      id:
+       type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      birthDate:
+        type: string
+      startDate:
+        type: string
+      street:
+        type: string
+      city:
+        type: string
+      state:
+        type: string
+      zipCode:
+        type: string
+      department:
+        type: string
+  EmployeeRequestModel:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      birthDate:
+        type: string
+      startDate:
+        type: string
+      street:
+        type: string
+      city:
+        type: string
+      state:
+        type: string
+      zipCode:
+        type: string
+      department:
+        type: string
