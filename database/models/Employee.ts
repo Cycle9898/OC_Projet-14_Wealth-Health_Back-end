@@ -1,6 +1,18 @@
 import mongoose from "mongoose";
 
-const employeeSchema = new mongoose.Schema({
+export type EmployeeType = {
+    firstName: string,
+    lastName: string,
+    birthDate: string,
+    startDate: string,
+    street: string,
+    city: string,
+    state: string,
+    zipCode: string,
+    department: string
+}
+
+const employeeSchema = new mongoose.Schema<EmployeeType>({
     firstName: { type: String,required: true },
     lastName: { type: String,required: true },
     birthDate: { type: String,required: true },
@@ -12,4 +24,4 @@ const employeeSchema = new mongoose.Schema({
     department: { type: String,required: true }
 });
 
-export default mongoose.model("Employee",employeeSchema);
+export default mongoose.model<EmployeeType>("Employee",employeeSchema);

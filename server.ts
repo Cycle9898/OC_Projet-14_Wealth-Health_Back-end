@@ -2,7 +2,7 @@ import express,{ Express,Request,Response,NextFunction } from "express";
 import dotenv from "dotenv";
 import connectDatabase from "./database/connectDatabase.js";
 import cors from "cors";
-import swaggerUi from "swagger-ui-express";
+import swaggerUi,{ JsonObject } from "swagger-ui-express";
 import yamljs from "yamljs";
 import employeeRouter from "./routes/employeesRouter.js";
 import HRUsersRouter from "./routes/HRUsersRouter.js";
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // API Documentation
-const swaggerDocs = yamljs.load('./swagger/swagger.yaml');
+const swaggerDocs: JsonObject = yamljs.load('./swagger/swagger.yaml');
 
 if (process.env.NODE_ENV !== 'production') {
     app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs))

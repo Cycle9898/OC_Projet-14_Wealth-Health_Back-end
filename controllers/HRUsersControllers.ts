@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 export function signUp(req: Request,res: Response,next: NextFunction) {
     bcrypt.hash(req.body.password,10)
-        .then((hash) => {
+        .then((hash: string) => {
             const hrUser = new HRUser({
                 email: req.body.email,
                 password: hash,
@@ -39,7 +39,7 @@ export function logIn(req: Request,res: Response,next: NextFunction) {
                 });
             }
             bcrypt.compare(req.body.password,hrUser.password)
-                .then((valid) => {
+                .then((valid: boolean) => {
                     if (!valid) {
                         return res.status(401).json({
                             message: "Invalid credentials"
