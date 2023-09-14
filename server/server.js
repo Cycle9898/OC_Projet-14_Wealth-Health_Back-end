@@ -5,6 +5,7 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import yamljs from "yamljs";
 import employeeRouter from "./routes/employeesRouter.js";
+import HRUsersRouter from "./routes/HRUsersRouter.js";
 // Setting up the Express App
 dotenv.config();
 const app = express();
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 }
 // Handle custom routes
+app.use('/api/v1/hr', HRUsersRouter);
 app.use('/api/v1/employees', employeeRouter);
 // Standard route
 app.get("/", (req, res, next) => {

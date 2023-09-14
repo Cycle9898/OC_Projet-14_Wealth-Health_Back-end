@@ -31,6 +31,8 @@ paths:
             $ref: '#/definitions/LoginResponse'
         '400':
           description: Invalid Field(s)
+        '401':
+          description: Invalid credentials
         '500':
           description: Internal Server Error
   /hr/signup:
@@ -49,7 +51,7 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        '201':
           description: User created Successfully
           schema:
             $ref: '#/definitions/SignUpResponse'
@@ -89,6 +91,8 @@ paths:
                   $ref: '#/definitions/EmployeeModel'
         '400':
           description: Invalid Field
+        '401':
+          description: Token is missing from header
         '500':
           description: Internal Server Error
     post:
@@ -126,6 +130,8 @@ paths:
                 $ref: '#/definitions/EmployeeModel'
         '400':
           description: Invalid Field(s)
+        '401':
+          description: Token is missing from header
         '500':
           description: Internal Server Error
   /employees/{employeeID}:
@@ -163,6 +169,8 @@ paths:
                 $ref: '#/definitions/EmployeeModel'
         '400':
           description: Invalid Field
+        '401':
+          description: Token is missing from header
         '500':
           description: Internal Server Error
     put:
@@ -205,6 +213,8 @@ paths:
                 $ref: '#/definitions/EmployeeModel'
         '400':
           description: Invalid Field(s)
+        '401':
+          description: Token is missing from header
         '500':
           description: Internal Server Error
     delete:
@@ -239,6 +249,8 @@ paths:
                 type: string
         '400':
           description: Invalid Field
+        '401':
+          description: Token is missing from header
         '500':
           description: Internal Server Error
 securityDefinitions:
@@ -258,6 +270,10 @@ definitions:
   LoginResponse:
     type: object
     properties:
+      status:
+        type: number
+      message:
+        type: string
       token:
         type: string
   SignUp:

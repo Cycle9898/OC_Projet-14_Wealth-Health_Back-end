@@ -1,9 +1,10 @@
 import express from "express";
 import * as employeesControllers from "../controllers/employeesControllers.js";
+import validateToken from "../middlewares/tokenValidation.js";
 const employeesRouter = express.Router();
 export default employeesRouter;
-employeesRouter.get("/", employeesControllers.getEmployeesList);
-employeesRouter.post("/", employeesControllers.addEmployee);
-employeesRouter.get("/:employeeID", employeesControllers.getOneEmployee);
-employeesRouter.put("/:employeeID", employeesControllers.updateOneEmployee);
-employeesRouter.delete("/:employeeID", employeesControllers.deleteOneEmployee);
+employeesRouter.get("/", validateToken, employeesControllers.getEmployeesList);
+employeesRouter.post("/", validateToken, employeesControllers.addEmployee);
+employeesRouter.get("/:employeeID", validateToken, employeesControllers.getOneEmployee);
+employeesRouter.put("/:employeeID", validateToken, employeesControllers.updateOneEmployee);
+employeesRouter.delete("/:employeeID", validateToken, employeesControllers.deleteOneEmployee);
