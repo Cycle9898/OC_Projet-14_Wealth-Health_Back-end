@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const databaseUrl: string =
     process.env.DATABASE_URL || "mongodb://localhost/wealthHealthHRnetDB";
