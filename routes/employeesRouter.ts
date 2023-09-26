@@ -1,6 +1,7 @@
 import express,{ Router } from "express";
 import * as employeesControllers from "../controllers/employeesControllers.js";
 import validateToken from "../middlewares/tokenValidation.js";
+import { employeeDataValidationChain,handleValidationErrors } from "../middlewares/reqBodyDataValidation.js";
 
 const employeesRouter: Router = express.Router();
 export default employeesRouter;
@@ -12,6 +13,8 @@ employeesRouter.get("/",
 
 employeesRouter.post("/",
     validateToken,
+    employeeDataValidationChain,
+    handleValidationErrors,
     employeesControllers.addEmployee
 );
 
@@ -22,6 +25,8 @@ employeesRouter.get("/:employeeID",
 
 employeesRouter.put("/:employeeID",
     validateToken,
+    employeeDataValidationChain,
+    handleValidationErrors,
     employeesControllers.updateOneEmployee
 );
 
