@@ -26,9 +26,9 @@ mongod --version
 ### Instructions
 
 1. Fork this repo
-1. Clone the repo onto your computer
-1. Open a terminal window in the cloned project
-1. Run the following commands:
+2. Clone the repo onto your computer
+3. Open a terminal window in the cloned project
+4. Run the following commands:
 
 ```bash
 # Install dependencies
@@ -46,7 +46,7 @@ yarn populate-db
 
 Your server should now be running at http://locahost:3001 (default URL and port) and you will now have a HR user in your MongoDB database!
 
-## Populated Database Data
+## Populate the MongoDB database with a HR user
 
 Once you run the `populate-db` script, you should have a HR user in your database:
 
