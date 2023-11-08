@@ -1,4 +1,12 @@
 import jwt from "jsonwebtoken";
+/**
+ * @description
+ * Middleware function to verify JWT token validity
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 function validateToken(req, res, next) {
     try {
         if (!req.headers.authorization) {

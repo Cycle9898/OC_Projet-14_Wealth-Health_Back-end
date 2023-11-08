@@ -1,6 +1,14 @@
 import HRUser from "../database/models/HRUser.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+/**
+ * @description
+ * Controller function to sign up an user
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function signUp(req, res, next) {
     bcrypt.hash(req.body.password, 10)
         .then((hash) => {
@@ -26,6 +34,14 @@ export function signUp(req, res, next) {
     })
         .catch((error) => res.status(500).json({ error }));
 }
+/**
+ * @description
+ * Controller function to login an user
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function logIn(req, res, next) {
     HRUser.findOne({ email: req.body.email })
         .then((hrUser) => {

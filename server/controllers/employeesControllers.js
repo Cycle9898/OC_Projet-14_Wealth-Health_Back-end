@@ -1,6 +1,15 @@
 import Employee from "../database/models/Employee.js";
+/**
+ * @description
+ * Controller function to get all employees' data
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function getEmployeesList(req, res, next) {
     Employee.find()
+        .select('-__v')
         .then((employeesList) => {
         res.status(200).json({
             status: 200,
@@ -12,6 +21,14 @@ export function getEmployeesList(req, res, next) {
         res.status(400).json({ error });
     });
 }
+/**
+ * @description
+ * Controller function to save a new employee's data
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function addEmployee(req, res, next) {
     const employee = new Employee({
         firstName: req.body.firstName,
@@ -36,8 +53,17 @@ export function addEmployee(req, res, next) {
         res.status(400).json({ error });
     });
 }
+/**
+ * @description
+ * Controller function to get a chosen employee's data
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function getOneEmployee(req, res, next) {
     Employee.findOne({ _id: req.params.employeeID })
+        .select('-__v')
         .then((foundEmployee) => {
         res.status(200).json({
             status: 200,
@@ -49,6 +75,14 @@ export function getOneEmployee(req, res, next) {
         res.status(400).json({ error });
     });
 }
+/**
+ * @description
+ * Controller function to update a chosen employee's data
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function updateOneEmployee(req, res, next) {
     const employee = new Employee({
         _id: req.params.employeeID,
@@ -74,6 +108,14 @@ export function updateOneEmployee(req, res, next) {
         res.status(400).json({ error });
     });
 }
+/**
+ * @description
+ * Controller function to delete a chosen employee's data
+ *
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function deleteOneEmployee(req, res, next) {
     Employee.deleteOne({ _id: req.params.employeeID })
         .then(() => {

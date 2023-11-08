@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 const databaseUrl = process.env.DATABASE_URL || "mongodb://localhost/wealthHealthHRnetDB";
+/**
+ * @description
+ * Function that link backend to MongoDB database
+ */
 async function connectDatabase() {
     try {
         await mongoose.connect(databaseUrl);

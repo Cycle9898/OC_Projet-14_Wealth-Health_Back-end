@@ -1,8 +1,17 @@
 import Employee from "../database/models/Employee.js";
 import type { Request,Response,NextFunction } from "express";
 
+/**
+ * @description
+ * Controller function to get all employees' data
+ * 
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function getEmployeesList(req: Request,res: Response,next: NextFunction) {
     Employee.find()
+        .select('-__v')
         .then((employeesList) => {
             res.status(200).json(
                 {
@@ -16,6 +25,14 @@ export function getEmployeesList(req: Request,res: Response,next: NextFunction) 
         });
 }
 
+/**
+ * @description
+ * Controller function to save a new employee's data
+ * 
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function addEmployee(req: Request,res: Response,next: NextFunction) {
     const employee = new Employee({
         firstName: req.body.firstName,
@@ -41,8 +58,17 @@ export function addEmployee(req: Request,res: Response,next: NextFunction) {
         })
 }
 
+/**
+ * @description
+ * Controller function to get a chosen employee's data
+ * 
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function getOneEmployee(req: Request,res: Response,next: NextFunction) {
     Employee.findOne({ _id: req.params.employeeID })
+        .select('-__v')
         .then((foundEmployee) => {
             res.status(200).json(
                 {
@@ -56,6 +82,14 @@ export function getOneEmployee(req: Request,res: Response,next: NextFunction) {
         });
 }
 
+/**
+ * @description
+ * Controller function to update a chosen employee's data
+ * 
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function updateOneEmployee(req: Request,res: Response,next: NextFunction) {
     const employee = new Employee({
         _id: req.params.employeeID,
@@ -86,6 +120,14 @@ export function updateOneEmployee(req: Request,res: Response,next: NextFunction)
         });
 }
 
+/**
+ * @description
+ * Controller function to delete a chosen employee's data
+ * 
+ * @param req - Request
+ * @param res - Response
+ * @param next - Next function
+ */
 export function deleteOneEmployee(req: Request,res: Response,next: NextFunction) {
     Employee.deleteOne({ _id: req.params.employeeID })
         .then(() => {
