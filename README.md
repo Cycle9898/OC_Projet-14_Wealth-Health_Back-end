@@ -11,7 +11,7 @@ With it, you can create HR users, authenticate them and also store, modify or de
 Wealth Health API uses the following tech stack:
 
 - [Node.js](https://nodejs.org/en)
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community)
+- [MongoDB Community Server](https://www.mongodb.com/try/download/community) but the MongoDB database can also be hosted online (see DATABASE_URL in the **Environment variables** section)
 
 Please make sure you have the latest versions and download both packages. You can verify this by using the following commands in your terminal:
 
@@ -38,6 +38,7 @@ yarn
 yarn dev
 
 # OR start static local dev server
+yarn build
 yarn start
 
 # Then populate the database with a HR user
@@ -46,7 +47,7 @@ yarn populate-db
 
 Your server should now be running at http://locahost:3001 (default URL and port) and you will now have a HR user in your MongoDB database!
 
-## Populate the MongoDB database with a HR user
+## HR user in the MongoDB database
 
 Once you run the `populate-db` script, you should have a HR user in your database:
 
@@ -92,6 +93,8 @@ Otherwise, the default base URL is "http://localhost".
 ### DATABASE_URL
 
 Modify the database server URL.
+
+For exemple, if the database is hosted on a platform like [MongoDB Atlas](https://www.mongodb.com/).
 
 Otherwise, the default URL is "mongodb://localhost/wealthHealthHRnetDB".
 

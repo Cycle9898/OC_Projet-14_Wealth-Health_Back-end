@@ -15,7 +15,8 @@ const hrUser: HRUserType = {
 
 // port and URL for API request
 const port: number = process.env.PORT && parseInt(process.env.PORT) || 3001;
-const hrUserSignUpURL: string = `http://localhost:${port}/api/v1/hr/signup`;
+const hrUserSignUpURL: string = (process.env.API_URL && `${process.env.API_URL}/api/v1/hr/signup`) ||
+    `http://localhost:${port}/api/v1/hr/signup`;
 
 // API call
 axios.post(hrUserSignUpURL,hrUser)
